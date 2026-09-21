@@ -1,0 +1,45 @@
+# Runtime artifacts
+reports.csv
+reports_*.csv
+report_*.csv
+
+# Proxy files
+proxies_*.json
+working_*.txt
+proxy_history.json
+fingerprint.json
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+.env
+*.log
