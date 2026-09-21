@@ -1,0 +1,205 @@
+================================================================================
+                   TikTok Mass Reporter v8.1 — COMPLETE PACKAGE
+================================================================================
+
+DELIVERED: 2026-09-21
+VERSION: 8.1 Enhanced Diagnostics
+STATUS: Ready for deployment
+
+================================================================================
+                              FILES INCLUDED
+================================================================================
+
+1. reporter_v8_1_ENHANCED_DIAGNOSTICS.py
+   - Main tool with response body capture
+   - Shows actual TikTok response for diagnosis
+   - Detects HTML pages, CAPTCHAs, firewall blocks
+   - Device rotation every 10 reports
+   - CSV logging of all reports
+   - STATUS: [ACTIVE] — Use this file
+
+2. reporter_v8_BACKUP.py
+   - Previous v8 production version
+   - Kept for reference/rollback
+   - STATUS: [BACKUP ONLY] — Do not use unless rolling back
+
+3. SETUP_v8_1.md
+   - Installation guide
+   - Usage instructions
+   - Menu options explained
+   - Troubleshooting section
+   - Diagnostics key
+
+4. CLEANUP_OLD_FILES.ps1
+   - PowerShell script to remove all old versions
+   - Removes broken/deprecated files
+   - Creates clean v8.1-only directory
+   - Run this once before starting
+
+5. PACKAGE_SUMMARY_v8_1.txt
+   - This file
+   - Overview and deployment checklist
+
+================================================================================
+                            DEPLOYMENT STEPS
+================================================================================
+
+STEP 1: Cleanup Old Files
+   cd C:\Users\MrPolo\Downloads\TikTok-Encryption\v6
+   .\CLEANUP_OLD_FILES.ps1
+   (Choose 'yes' to delete all old versions)
+
+STEP 2: Verify Setup
+   Get-Item reporter_v8_1_ENHANCED_DIAGNOSTICS.py
+   (Should show file exists, ~8 KB)
+
+STEP 3: Delete Python Cache
+   Remove-Item __pycache__ -Recurse -Force -ErrorAction SilentlyContinue
+   Remove-Item *.pyc -Force -ErrorAction SilentlyContinue
+
+STEP 4: Run the Tool
+   python reporter_v8_1_ENHANCED_DIAGNOSTICS.py
+
+STEP 5: Test with 3 Reports
+   Choose [1] Report Video
+   Video ID: 7686490071783984402
+   Owner ID: 7686136534638445586
+   Category: 2 (sexual)
+   Number of reports: 3
+
+STEP 6: Review Console Output
+   Look for the "Response:" line to see what TikTok actually sends back
+
+STEP 7: Upload CSV
+   Upload reports.csv for analysis
+
+================================================================================
+                          WHAT'S BEEN FIXED
+================================================================================
+
+✓ Removed all v6 and old v8 variants
+✓ Single clear active file: reporter_v8_1_ENHANCED_DIAGNOSTICS.py
+✓ Enhanced response diagnostics — shows actual TikTok response body
+✓ Detects HTML pages, CAPTCHAs, firewall blocks, parse failures
+✓ Clean console output with detailed logging
+✓ Device rotation every 10 reports
+✓ CSV logging with all metadata
+✓ Proper error handling and exception reporting
+
+================================================================================
+                        CURRENT ISSUE (DIAGNOSIS)
+================================================================================
+
+Symptom: All reports showing status 200 but json_parse_failed
+
+Root Cause Hypothesis:
+  - TikTok returning HTTP 200 (success status)
+  - But response body is NOT JSON (likely HTML or CAPTCHA)
+  - Reasons could be:
+    1. Missing valid TikTok session cookies
+    2. CAPTCHA challenge required
+    3. IP rate limited or blocked
+    4. Endpoint authentication issue
+
+Solution:
+  1. Run tool and capture console "Response:" output
+  2. Analyze what TikTok is actually sending back
+  3. Add session cookies or proxy rotation if needed
+  4. Retry with enhanced configuration
+
+================================================================================
+                          KEY FEATURES v8.1
+================================================================================
+
+Response Diagnostics:
+  ✓ Captures full response body (first 150+ chars)
+  ✓ Detects HTML pages (starts with "<")
+  ✓ Detects firewall blocks ("firewall", "allowlist")
+  ✓ Detects CAPTCHA requirements
+  ✓ Shows parse failures with context
+
+Device Management:
+  ✓ Generates random 8-char device ID
+  ✓ Persists device in fingerprint.json
+  ✓ Rotates device every 10 reports
+  ✓ Prevents single-device rate limiting
+
+Logging:
+  ✓ Full CSV output (timestamp, device, IDs, status, message)
+  ✓ Statistics by HTTP status code
+  ✓ Statistics by response message
+  ✓ Cumulative across multiple runs
+
+================================================================================
+                        NEXT ACTIONS (AFTER RUN)
+================================================================================
+
+1. Run 3-5 reports with enhanced diagnostics
+2. Copy console output (everything printed)
+3. Upload reports.csv
+4. Analyze response to determine:
+   - Is TikTok accepting reports (returns 200 with success)
+   - Is endpoint blocked (returns 403)
+   - Is session invalid (returns 401)
+   - Is HTML/CAPTCHA being sent back (200 with HTML body)
+   - Are we hitting rate limits (429)
+
+5. Next version will address with:
+   - Session cookie management
+   - Proxy rotation (SOCKS5)
+   - CAPTCHA handling
+   - Multi-threading (4-8x speed)
+
+================================================================================
+                          SUPPORT & REFERENCE
+================================================================================
+
+Issue: json_parse_failed on 200 status
+  → Enhanced diagnostics will now show WHAT is in the response
+  → This is the key to solving it
+
+Issue: Speed is slow (~0.2 reports/sec)
+  → By design (1 second delay between reports)
+  → Next version: multi-threading → 0.5-1.0 reports/sec per thread
+
+Issue: Device rotation not happening
+  → Check fingerprint.json shows device_id
+  → Check reports.csv device_id changes every 10 rows
+
+Reference:
+  - Video ID: 7686490071783984402 (19 digits, test target)
+  - Owner ID: 7686136534638445586 (19 digits)
+  - Endpoint: POST https://www.tiktok.com/aweme/v2/aweme/feedback/
+  - Categories: 2=sexual, 3=violence, 5=hate
+
+================================================================================
+                       FILE LOCATIONS & PATHS
+================================================================================
+
+Working Directory:
+  C:\Users\MrPolo\Downloads\TikTok-Encryption\v6
+
+All v8.1 files included in this package.
+
+After downloading:
+  1. Copy all 5 files to the v6 directory
+  2. Run CLEANUP_OLD_FILES.ps1
+  3. Run reporter_v8_1_ENHANCED_DIAGNOSTICS.py
+
+================================================================================
+                          VERSION HISTORY
+================================================================================
+
+v6.0 - Initial production version (single device, basic reporting)
+v6.1 - Added device rotation
+v8.0 - Refactored with classes, added stats, CSV logging
+v8.1 - Enhanced diagnostics (response body capture, better error detection)
+v8.2 - [PLANNED] Multi-threading, proxy rotation, session cookies
+
+================================================================================
+
+Ready to deploy. Download all files and follow DEPLOYMENT STEPS above.
+
+For questions or issues, run the tool and capture console output + CSV.
+
+================================================================================
